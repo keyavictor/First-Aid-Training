@@ -208,8 +208,41 @@ if ($result) {
         </div>
     </div>
 </div>
+    <!-- ============================================================== -->
 
-       
+    <div id="editUserModal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit User Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm">
+                    <input type="hidden" id="editUserId" name="editUserId">
+                    <div class="mb-3">
+                        <label for="editFirstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="editFirstName" name="editFirstName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editLastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="editLastName" name="editLastName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="editEmail" name="editEmail">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editRole" class="form-label">Role</label>
+                        <input type="text" class="form-control" id="editRole" name="editRole" disabled>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
@@ -266,6 +299,54 @@ $(document).ready(function() {
         });
     });
 </script>
+<script>
+    $(document).ready(function() {
+        // Handle click event for edit button
+        $('.edit-lecturer-modal-btn').click(function(e) {
+            e.preventDefault();
+            var userId = $(this).data('id');
+            var firstName = $(this).data('fname');
+            var lastName = $(this).data('lname');
+            var email = $(this).data('mail');
+            var role = $(this).data('user_role');
+
+            // Populate modal fields with user details
+            $('#editUserId').val(userId);
+            $('#editFirstName').val(firstName);
+            $('#editLastName').val(lastName);
+            $('#editEmail').val(email);
+            $('#editRole').val(role);
+
+            // Show the modal
+            $('#editUserModal').modal('show');
+        });
+
+        // Handle form submission for editing user details
+        $('#editUserForm').submit(function(e) {
+            e.preventDefault();
+            var formData = $(this).serialize();
+            // Ajax request to update user details
+            $.ajax({
+                type: 'POST',
+                url: 'update_user_details.php', // Change the URL to your PHP script for updating user details
+                data: formData,
+                success: function(response) {
+                    // Handle success response
+                    console.log(response);
+                    // Close the modal
+                    $('#editUserModal').modal('hide');
+                    // Optionally, update the table with the new data
+                    location.reload(); // Reload the page or update the table using JavaScript
+                },
+                error: function(xhr, status, error) {
+                    // Handle error response
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
+
 
 
 </body>
