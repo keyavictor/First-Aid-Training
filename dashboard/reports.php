@@ -73,6 +73,125 @@ if (isset($_POST['download-module-btn'])) {
         // header('location: ./reports.php');
 }
 
+
+if (isset($_POST['download-user-btn'])) {
+    // Set the content type as a downloadable PDF file
+    header('Content-Type: application/pdf');
+    // Set the file name
+    header('Content-Disposition: attachment; filename="user_details.pdf"');
+
+    // Include the necessary files for creating a PDF
+    require('fpdf/fpdf.php');
+
+    // Fetch data from Modules table
+    $sql = "SELECT user_id, email, first_name, last_name FROM Users";
+    $result = $db->query($sql);
+
+    // Create PDF
+    $pdf = new FPDF();
+    $pdf->AddPage();
+
+
+    // Set font for table headers
+    $pdf->SetFont('Arial', 'B', 12);
+
+    //logo
+    $pdf->Image('images/logo.png', $pdf->GetPageWidth()/2 - 25, 10, 50, 0, 'PNG');
+    
+    // Write the title of the document
+    $pdf->SetFont('Arial', 'B', 16);
+    $pdf->Cell(0, 50, '', 0, 1, 'C');
+    $pdf->Cell(0, 10, 'Maseno University First Aid App', 0, 1, 'C');
+    $pdf->Cell(0, 10, 'User Details', 0, 1, 'C');
+
+// Write user data
+    // Add table headers
+    $pdf->Cell(10, 10, 'ID', 1);
+    $pdf->Cell(40, 10, 'Email', 1);
+    $pdf->Cell(60, 10, 'First Name', 1);
+    $pdf->Cell(60, 10, 'Last Name', 1);
+    $pdf->Ln();
+    // Set font for table data
+    $pdf->SetFont('Arial', '', 10);
+    // Write user data in table format
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $pdf->Cell(10,10,$row['user_id'],1);
+            $pdf->Cell(40,10,$row['email'],1);
+            $pdf->Cell(60,10,$row['first_name'],1);
+            $pdf->Cell(60,10,$row['last_name'],1);
+            $pdf->Ln(); // Move to the next line
+        }
+    } else {
+        $pdf->Cell(180,10,'No users found.',1,1);
+    }
+
+    // Close the database connection and output the PDF
+    mysqli_close($db);
+    $pdf->Output('D', 'user_details.pdf');
+
+        // header('location: ./reports.php');
+}
+
+
+if (isset($_POST['download-complaints-btn'])) {
+    // Set the content type as a downloadable PDF file
+    header('Content-Type: application/pdf');
+    // Set the file name
+    header('Content-Disposition: attachment; filename="complaints_details.pdf"');
+
+    // Include the necessary files for creating a PDF
+    require('fpdf/fpdf.php');
+
+    // Fetch data from Modules table
+    $sql = "SELECT complaint_id, subject, description FROM Complaints";
+    $result = $db->query($sql);
+
+    // Create PDF
+    $pdf = new FPDF();
+    $pdf->AddPage();
+
+
+    // Set font for table headers
+    $pdf->SetFont('Arial', 'B', 12);
+
+    //logo
+    $pdf->Image('images/logo.png', $pdf->GetPageWidth()/2 - 25, 10, 50, 0, 'PNG');
+    
+    // Write the title of the document
+    $pdf->SetFont('Arial', 'B', 16);
+    $pdf->Cell(0, 50, '', 0, 1, 'C');
+    $pdf->Cell(0, 10, 'Maseno University First Aid App', 0, 1, 'C');
+    $pdf->Cell(0, 10, 'User Details', 0, 1, 'C');
+
+// Write user data
+    // Add table headers
+    $pdf->Cell(20, 10, 'ID', 1);
+    $pdf->Cell(70, 10, 'Subject', 1);
+    $pdf->Cell(110, 10, 'Description', 1);
+    $pdf->Ln();
+    // Set font for table data
+    $pdf->SetFont('Arial', '', 10);
+    // Write user data in table format
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $pdf->Cell(20,10,$row['complaint_id'],1);
+            $pdf->Cell(70,10,$row['subject'],1);
+            $pdf->Cell(110,10,$row['description'],1); 
+            $pdf->Ln(); // Move to the next line
+        }
+    } else {
+        $pdf->Cell(180,10,'No users found.',1,1);
+    }
+
+    // Close the database connection and output the PDF
+    mysqli_close($db);
+    $pdf->Output('D', 'complaints_details.pdf');
+
+        // header('location: ./reports.php');
+}
+
+
 $fname = $_SESSION['fname'];
 $lname = $_SESSION['lname'];
 $name = $_SESSION['fname'] . " ".$_SESSION['lname'];
