@@ -73,7 +73,15 @@ $role_name = $_SESSION['role_name'];
                         <div class="card-body">
 
                             <h5 class="card-title">List of Complains</h5>
-                            
+                            <?php
+               if ($_SESSION['role_name'] == 'User'){
+              ?>
+                            <input type='button' value='Add Complain' name='open-complain-btn'
+                                class='btn btn-primary float-end open-lecturer-modal-btn m-2' /> 
+                                <?php
+                   }
+              ?>
+                                         
                             <div class="table-responsive">
                                 <table id="dtBasicExample" class="table table-hover table-bordered table-sm"
                                     cellspacing="0" width="100%">
