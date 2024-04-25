@@ -1,0 +1,71 @@
+
+-- Create Users table
+CREATE TABLE Users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(255),
+    password VARCHAR(32), -- Using VARCHAR(32) to store MD5 hash
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    role_id INT
+);
+
+-- Insert dummy data into Users table
+INSERT INTO Users (email, password, first_name, last_name, role_id) VALUES
+('john@example.com', MD5('password123'), 'John', 'Doe', 1), -- User
+('admin@example.com', MD5('Maseno@2023'), 'Admin', 'User', 2); -- Admin
+
+-- Create Roles table
+CREATE TABLE Roles (
+    role_id INT PRIMARY KEY AUTO_INCREMENT,
+    role_name VARCHAR(255)
+);
+
+-- Insert dummy data into Roles table
+INSERT INTO Roles (role_name) VALUES
+('User'),
+('Admin');
+
+-- Create Modules table
+CREATE TABLE Modules (
+    module_id INT PRIMARY KEY AUTO_INCREMENT,
+    module_name VARCHAR(255),
+    description TEXT,
+    module_file VARCHAR(255)
+);
+
+-- Insert dummy data into Modules table
+INSERT INTO Modules (module_name, description, module_file) VALUES
+('First Aid Basics', 'Introduction to basic first aid techniques.', 'first_aid_basics.pdf'),
+('Fire Safety Training', 'Training on fire prevention and safety measures.', 'fire_safety_training.ppt');
+
+-- Create Module_Access_Log table
+CREATE TABLE Module_Access_Log (
+    log_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    module_id INT,
+    access_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (module_id) REFERENCES Modules(module_id)
+);
+
+-- Insert dummy data into Module_Access_Log table
+INSERT INTO Module_Access_Log (user_id, module_id) VALUES
+(1, 1), -- John accessed First Aid Basics
+(2, 1); -- Admin accessed First Aid Basics
+
+-- Create Complaints table
+CREATE TABLE Complaints (
+    complaint_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    subject VARCHAR(255),
+    description TEXT,
+    status VARCHAR(50),
+    admin_response TEXT,
+    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    date_responded TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+-- Insert dummy data into Complaints table
+INSERT INTO Complaints (user_id, subject, description, status, admin_response, date_responded) VALUES
+(1, 'Issue with First Aid module', 'Encountered errors while accessing the First Aid Basics module.', 'Open', NULL, NULL);
