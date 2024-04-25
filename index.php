@@ -47,13 +47,15 @@ include 'server.php';
                     </div>
 
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-12">
+                            <button type="submit" name="login_btn" class="btn btn-info btn-block">Sign In</button>
+                        </div>
+                        <div class="col-md-6">
                         <a href="#" class="text-success m-2 btn-block" 
                             onclick="showForgotPasswordPopup()">Forgot Password?</a>
                         </div>
-                        <div class="col-md-2"></div>
-                        <div class="col-md-5">
-                            <button type="submit" name="login_btn" class="btn btn-info btn-block">Sign In</button>
+                        <div class="col-md-6">
+                            <a href="register.php" class="text-success m-2 btn-block" >Register Account</a>
                         </div>
                     </div>
                 </form>
