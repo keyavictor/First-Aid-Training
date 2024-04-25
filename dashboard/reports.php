@@ -9,7 +9,6 @@ if (!isset($_SESSION['role_id']) || empty($_SESSION['role_id'])) {
   header("location: ../index.php"); 
   exit;
 }
-//$pdf->Image('images/logo.png', $pdf->GetPageWidth()/2 - 25, 10, 50, 0, 'PNG');
 
 //deny access to courses.php if user is not an admin
 if ($_SESSION['role_name'] !== 'Admin') {
@@ -17,68 +16,62 @@ if ($_SESSION['role_name'] !== 'Admin') {
   header("Location: index.php"); 
   exit;
 }
-if (isset($_POST['download-lecturer-btn'])) {
+
+if (isset($_POST['download-module-btn'])) {
     // Set the content type as a downloadable PDF file
     header('Content-Type: application/pdf');
     // Set the file name
-    header('Content-Disposition: attachment; filename="lecturer_details.pdf"');
+    header('Content-Disposition: attachment; filename="module_details.pdf"');
 
     // Include the necessary files for creating a PDF
     require('fpdf/fpdf.php');
 
-    // Create a new PDF document
+    // Fetch data from Modules table
+    $sql = "SELECT * FROM Modules";
+    $result = $db->query($sql);
+
+    // Create PDF
     $pdf = new FPDF();
     $pdf->AddPage();
 
-    // Set the font and font size for the document
-    $pdf->SetFont('Arial', 'B', 14);
 
-    // Add the logo to the document
+    // Set font for table headers
+    $pdf->SetFont('Arial', 'B', 12);
+
+    //logo
     $pdf->Image('images/logo.png', $pdf->GetPageWidth()/2 - 25, 10, 50, 0, 'PNG');
-
+    
     // Write the title of the document
     $pdf->SetFont('Arial', 'B', 16);
     $pdf->Cell(0, 50, '', 0, 1, 'C');
-    $pdf->Cell(0, 10, 'Maseno University', 0, 1, 'C');
-    $pdf->Cell(0, 10, 'Lecturer Details', 0, 1, 'C');
-
-    // Set the font and font size for the table headers
-    $pdf->SetFont('Arial', 'B', 12);
-
-    // Write the headers of the table
-    $pdf->Cell(25, 10, 'PF Number', 1);
-    $pdf->Cell(95, 10, 'Name', 1);
-    $pdf->Cell(40, 10, 'Department', 1);
-     $pdf->Ln();
+    $pdf->Cell(0, 10, 'Maseno University First Aid App', 0, 1, 'C');
+    $pdf->Cell(0, 10, 'Module Details', 0, 1, 'C');
 
 
-    // Query to get the school details
-    $sql = "SELECT * FROM user_details 
-    INNER JOIN lecturer_department_details ON lecturer_department_details.lecturer_id = user_details.pf_number
-    INNER JOIN department_details ON department_details.department_id = lecturer_department_details.department_id
-    ORDER BY user_details.id ASC";
-    $result = mysqli_query($db, $sql);
+    // Add table headers
+    $pdf->Cell(40, 10, 'Module ID', 1);
+    $pdf->Cell(60, 10, 'Module Name', 1);
+    $pdf->Cell(80, 10, 'Description', 1);
+    $pdf->Ln();
 
-    // Set the font and font size for the table rows
+    // Set font for table data
     $pdf->SetFont('Arial', '', 10);
 
-    // Loop through the results and write them to the table
-    if (mysqli_num_rows($result) > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        $pdf->Cell(25, 10, $row['pf_number'], 1);
-        $pdf->Cell(95, 10, $row['user_title']." ".$row['user_firstname']." ".$row['user_lastname'], 1);
-        $pdf->Cell(40, 10, $row['department_name'], 1);
+    // Add table data
+    while ($row = $result->fetch_assoc()) {
+        $pdf->Cell(40, 10, $row['module_id'], 1);
+        $pdf->Cell(60, 10, $row['module_name'], 1);
+        $pdf->Cell(80, 10, $row['description'], 1);
         $pdf->Ln();
     }
-    }
+
 
     // Close the database connection and output the PDF
     mysqli_close($db);
-    $pdf->Output('D', 'lecturer_details.pdf');
+    $pdf->Output('D', 'module_details.pdf');
 
         // header('location: ./reports.php');
 }
-    
 
 $fname = $_SESSION['fname'];
 $lname = $_SESSION['lname'];
