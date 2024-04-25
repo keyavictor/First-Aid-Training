@@ -48,6 +48,7 @@ if (isset($_POST['login_btn'])) {
 
     if (mysqli_num_rows($results) == 1) {
       $row = mysqli_fetch_assoc($results);
+      $_SESSION['user_id'] = $row['user_id']; // Add user ID to session
       $_SESSION['fname'] = $row['first_name'];
       $_SESSION['lname'] = $row['last_name'];
       $_SESSION['email'] = $row['email'];

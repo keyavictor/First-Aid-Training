@@ -41,19 +41,7 @@
                    }
               ?>
               
-                <?php
-               if ($_SESSION['role_name'] == 'Admin'){
-              ?>
-                <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="access_logs.php"
-                        aria-expanded="false"><i class="mdi mdi-timetable"></i><span
-                            class="hide-menu">Access Logs</span></a>
-                </li>
-                <?php
-                   }
-              ?>
-
-                <?php
+               <?php
                if ($_SESSION['role_name'] == 'Admin'){
               ?>
                 <li class="sidebar-item">

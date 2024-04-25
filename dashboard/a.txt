@@ -38,20 +38,6 @@ INSERT INTO Modules (module_name, description, module_file) VALUES
 ('First Aid Basics', 'Introduction to basic first aid techniques.', 'first_aid_basics.pdf'),
 ('Fire Safety Training', 'Training on fire prevention and safety measures.', 'fire_safety_training.ppt');
 
--- Create Module_Access_Log table
-CREATE TABLE Module_Access_Log (
-    log_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT,
-    module_id INT,
-    access_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id),
-    FOREIGN KEY (module_id) REFERENCES Modules(module_id)
-);
-
--- Insert dummy data into Module_Access_Log table
-INSERT INTO Module_Access_Log (user_id, module_id) VALUES
-(1, 1), -- John accessed First Aid Basics
-(2, 1); -- Admin accessed First Aid Basics
 
 -- Create Complaints table
 CREATE TABLE Complaints (

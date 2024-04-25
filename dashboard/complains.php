@@ -76,8 +76,9 @@ $role_name = $_SESSION['role_name'];
                             <?php
                if ($_SESSION['role_name'] == 'User'){
               ?>
-                            <input type='button' value='Add Complain' name='open-complain-btn'
-                                class='btn btn-primary float-end open-lecturer-modal-btn m-2' /> 
+                            <input type='button' id='addComplaintBtn' value='Add Complaint' name='open-complain-btn' 
+                            class='btn btn-primary float-end open-complain-modal-btn m-2' />
+
                                 <?php
                    }
               ?>
@@ -170,9 +171,78 @@ if ($result) {
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
+
+    <!-- Add Complaint Modal -->
+<div class="modal fade" id="addComplaintModal" tabindex="-1" role="dialog" aria-labelledby="addComplaintModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addComplaintModalLabel">Add Complaint</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addComplaintForm">
+          <div class="form-group">
+            <label for="complaintSubject">Subject</label>
+            <input type="text" class="form-control" id="complaintSubject" name="subject" required>
+          </div>
+          <div class="form-group">
+            <label for="complaintDescription">Description</label>
+            <textarea class="form-control" id="complaintDescription" name="description" rows="3" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
 <?php include "_scripts.php"?>
+<script>
+$(document).ready(function() {
+  // When the "Add Complaint" button is clicked
+  $('#addComplaintBtn').click(function() {
+    // Show the modal
+    $('#addComplaintModal').modal('show');
+  });
+});
+</script>
+
+<script>
+$(document).ready(function() {
+  $('#addComplaintForm').submit(function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // Serialize form data
+    var formData = $(this).serialize();
+
+    // Ajax request to submit form data
+    $.ajax({
+      type: 'POST',
+      url: 'add_complaint.php', // PHP script to handle form submission
+      data: formData,
+      success: function(response) {
+        // Handle success response
+        alert(response); // You can customize this based on your requirement
+        $('#addComplaintModal').modal('hide'); // Hide modal after successful submission
+        // You can also refresh the complaints table here if needed
+        location.reload();
+
+      },
+      error: function(xhr, status, error) {
+        // Handle error
+        console.error(xhr.responseText);
+        alert('An error occurred while submitting the complaint.');
+      }
+    });
+  });
+});
+</script>
+
   </body>
 </html>

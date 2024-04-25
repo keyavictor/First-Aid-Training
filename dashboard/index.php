@@ -66,7 +66,7 @@ $mail = $_SESSION['email'];
                                 <div class="col-md-4">
                                     <a href="./modules.php">
                                         <div class="card card-hover">
-                                            <div class="box bg-info text-center">
+                                            <div class="box bg-primary text-center">
                                                 <h1 class="font-light text-white">
                                                     <i class="mdi mdi-school"></i>
                                                 </h1>
@@ -75,18 +75,7 @@ $mail = $_SESSION['email'];
                                         </div>
                                     </a>
                                 </div>
-                                <div class="col-md-4">
-                                    <a href="./access_logs.php">
-                                        <div class="card card-hover">
-                                            <div class="box bg-orange text-center">
-                                                <h1 class="font-light text-white">
-                                                    <i class="mdi mdi-timetable"></i>
-                                                </h1>
-                                                <h6 class="text-white">Access Logs</h6>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div> 
+
                                 <div class="col-md-4">
                                     <a href="./complains.php">
                                         <div class="card card-hover">
@@ -114,7 +103,7 @@ $mail = $_SESSION['email'];
                                 <div class="col-md-4">
                                     <a href="./reports.php">
                                         <div class="card card-hover">
-                                            <div class="box bg-secondary text-center">
+                                            <div class="box bg-cyan text-center">
                                                 <h1 class="font-light text-white">
                                                     <i class="mdi mdi-file-pdf"></i>
                                                 </h1>
