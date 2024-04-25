@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = md5($_POST['password']); // Hash the password using MD5
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
-    $role_id = 1; // Set default role ID to 1 (User)
+    $role_id = 2; // Set default role ID to 1 (User)
 
     // Prepare and execute SQL statement to insert data into Users table
     $sql = "INSERT INTO Users (email, password, first_name, last_name, role_id) 
