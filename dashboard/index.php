@@ -68,9 +68,9 @@ $mail = $_SESSION['email'];
                                         <div class="card card-hover">
                                             <div class="box bg-primary text-center">
                                                 <h1 class="font-light text-white">
-                                                    <i class="mdi mdi-school"></i>
+                                                    <i class="mdi mdi-book-open-variant"></i>
                                                 </h1>
-                                                <h6 class="text-white">Modules</h6>
+                                                <h6 class="text-white">Resources</h6>
                                             </div>
                                         </div>
                                     </a>

@@ -12,7 +12,7 @@
               ?>
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="resources.php"
-                        aria-expanded="false"><i class="mdi mdi-school"></i><span class="hide-menu">Resources</span></a>
+                        aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Resources</span></a>
                 </li>
                 <?php
                    }
@@ -35,7 +35,7 @@
               ?>
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="modules.php"
-                        aria-expanded="false"><i class="mdi mdi-school"></i><span class="hide-menu">Modules</span></a>
+                        aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Resources</span></a>
                 </li>
                 <?php
                    }
